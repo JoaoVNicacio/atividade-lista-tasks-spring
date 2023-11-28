@@ -1,4 +1,4 @@
 package com.tasklist.atividadelistatasksspring.dtos;
 
-public record TaskDTO(String taskdDscription, boolean isCompleted) {
+public record TaskDTO(String taskDescription, boolean isCompleted) {
 }

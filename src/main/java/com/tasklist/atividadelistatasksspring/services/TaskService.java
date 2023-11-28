@@ -33,8 +33,8 @@ public class TaskService implements ITaskService{
   public Task createTask(TaskDTO taskDTO) {
     var newTask = new Task();
 
-    newTask.setTaskDescription(taskDTO.description());
-    newTask.setIsCompleted(false);
+    newTask.setTaskDescription(taskDTO.taskDescription());
+    newTask.setCompleted(false);
 
     return taskRepository.save(newTask);
   }
@@ -46,10 +46,10 @@ public class TaskService implements ITaskService{
     if (existingTaskOptional.isPresent()) {
       Task existingTask = existingTaskOptional.get();
 
-      existingTask.setIsCompleted(!getIsCompleted());
+      existingTask.setIsCompleted(!existingTask.getCompleted());
       taskRepository.save(existingTask);
 
-      return new TaskDTO(existingTask.getDescription(), existingTask.getIsCompleted());
+      return new TaskDTO(existingTask.getTaskDescription(), existingTask.isCompleted());
     }
 
     return null;
