@@ -3,12 +3,15 @@ package com.tasklist.atividadelistatasksspring.services;
 import com.tasklist.atividadelistatasksspring.dtos.TaskDTO;
 import com.tasklist.atividadelistatasksspring.entities.Task;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.tasklist.atividadelistatasksspring.repositories.ITaskRepository;
 
+@Service
 public class TaskService implements ITaskService{
   private final ITaskRepository taskRepository;
 
+  @Autowired
   public TaskService(ITaskRepository taskRepository) {
     this.taskRepository = taskRepository;
   }
@@ -44,9 +47,9 @@ public class TaskService implements ITaskService{
     var existingTaskOptional = taskRepository.findById(id);
 
     if (existingTaskOptional.isPresent()) {
-      Task existingTask = existingTaskOptional.get();
+      var existingTask = existingTaskOptional.get();
 
-      existingTask.setIsCompleted(!existingTask.getCompleted());
+      existingTask.setCompleted(!existingTask.isCompleted());
       taskRepository.save(existingTask);
 
       return new TaskDTO(existingTask.getTaskDescription(), existingTask.isCompleted());
